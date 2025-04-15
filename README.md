@@ -1,2 +1,2 @@
 # Budget_Tracker
-A budget tracker using python, streamlit and flask
+A budget tracker using python and streamlit
