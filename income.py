@@ -1,3 +1,4 @@
+# track income implementing the entry class
 from entries import Entry
 import streamlit as st
 

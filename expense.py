@@ -1,3 +1,4 @@
+# track expenses implementing the entry class
 from entries import Entry
 
 class Expense(Entry):

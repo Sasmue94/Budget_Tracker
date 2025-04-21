@@ -1,3 +1,5 @@
+# base class for budget tracker entries
+
 class Entry():
     def __init__(self, date, value = 0.00, desc = ""):
         self.value = round(value, 2)
