@@ -11,4 +11,4 @@ class Income(Entry):
         return self.type
 
     def toString(self) -> str:
-        return f"{self.get_date()} {self.get_desc()}: {self.get_val():.2f}"
+        return f"{self.get_date():%d.%m.%Y}: {self.get_desc()} {self.get_val():.2f}"

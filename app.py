@@ -3,6 +3,7 @@ import visuals as vs
 from entries import Entry
 from income import Income
 from expense import Expense
+import save as sv
 
 # config
 st.set_page_config(page_title="Budget Tracker", page_icon="💲", layout="wide", initial_sidebar_state="collapsed", menu_items=None)
@@ -15,10 +16,15 @@ def create_entry(type: str, val: float, desc: str, date: str) -> Entry:
     elif type == "Expense":
         return Expense(value=val, desc=desc, date=date)
 
+
+if not sv.savefile_exists():
+    sv.create_savefile()
+
 # session state
 state = st.session_state
+
 if "entries" not in state:
-    state.entries = []
+    state.entries = sv.read_savefile()
 if "income" not in state:
     state.income = 0.00
 if "expenses" not in state:
@@ -29,6 +35,20 @@ if "remaining" not in state:
 # header area
 st.header("Budget Tracker")
 st.divider()
+
+# get correct values for summary
+income = 0
+expense = 0
+for e in state.entries:
+    type_of_entry = e.get_type()
+    current_value = e.get_val()
+    if type_of_entry == "income":
+        income += current_value
+    elif type_of_entry == "expense":
+        expense += current_value
+    state.income = income
+    state.expenses = expense
+    state.remaining = income - expense
 
 # summary area
 inc, exp, rem = st.columns(3)
@@ -67,27 +87,19 @@ with st.form("entry_form", border=False):
 st.divider()
 
 # display area
-income = 0
-expense = 0
 for i, e in enumerate(state.entries):
-    l, r = st.columns(2)
+    l, r = st.columns([3,1])
     with l:
         vs.display(e)
     with r:
         if st.button("delete", key=f"entry_{i}", use_container_width=True):
             state.entries.pop(i)
+            sv.create_savefile(data=state.entries)
             st.rerun()
-    type_of_entry = e.get_type()
-    current_value = e.get_val()
-    if type_of_entry == "income":
-        income += current_value
-    elif type_of_entry == "expense":
-        expense += current_value
-    state.income = income
-    state.expenses = expense
-    state.remaining = income - expense
+
 
 if entry_added:
+    sv.create_savefile(data=state.entries)
     st.rerun()
 
 # footer area
