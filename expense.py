@@ -1,10 +1,11 @@
 # track expenses implementing the entry class
+import datetime
 from entries import Entry
 
 class Expense(Entry):
-    def __init__(self, date, value=0, desc=""):
+    def __init__(self, date: datetime, value: float = 0, desc: str = ""):
         super().__init__(date, value, desc)
-        self.type = "expense"
+        self.type: str = "expense"
 
     def get_type(self) -> str:
         return self.type

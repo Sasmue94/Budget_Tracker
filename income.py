@@ -1,11 +1,11 @@
 # track income implementing the entry class
 from entries import Entry
-import streamlit as st
+import datetime
 
 class Income(Entry):
-    def __init__(self, date, value=0, desc=""):
+    def __init__(self, date: datetime, value: float = 0, desc: str = ""):
         super().__init__(date, value, desc)
-        self.type = "income"
+        self.type: str = "income"
     
     def get_type(self) -> str:
         return self.type
