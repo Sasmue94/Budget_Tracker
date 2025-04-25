@@ -1,6 +1,6 @@
 # basic module to show things on screen
 
-import streamlit as st
+from streamlit import success, error
 from entries import Entry
 
 # render empty space specified in number of pixels
@@ -10,6 +10,6 @@ def empty_space(px = 0):
 # displays an entry based onits type
 def display(entry: Entry) -> None:
     if entry.get_type() == "income":
-        st.success(entry.toString())
+        success(entry.toString())
     elif entry.get_type() == "expense":
-        st.error(entry.toString())
+        error(entry.toString())
