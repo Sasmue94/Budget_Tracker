@@ -21,7 +21,7 @@ def file_exists(file: str = "./saved_entries.csv") -> bool:
 def create_savefile(filename: str = "saved_entries.csv", data: list[Entry] = []) -> None:
     """
     creates a csv savefile called 'saved_entries.csv' in the current working directory.\n
-    :param filenmame: relative path and filename \n
+    :param filename: relative path and filename \n
     """
     contents = []
     for entry in data:
