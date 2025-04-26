@@ -40,7 +40,7 @@ if __name__ == "__main__":
             state.expenses = expense
             state.remaining = income - expense
 
-    if not sv.savefile_exists():
+    if not sv.file_exists():
         sv.create_savefile()
 
     # session state

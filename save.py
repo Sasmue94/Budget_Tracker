@@ -7,14 +7,22 @@ from expense import Expense
 from income import Income
 
 # check if savefile exists
-def savefile_exists(savefile: str = "./saved_entries.csv") -> None:
+def file_exists(file: str = "./saved_entries.csv") -> bool:
+    """
+    checks if the specified file exists \n
+    :param file: path relative to current working directory and filename
+    :return: True if file exists, false if file does not exist
+    """
     try:
-        return os.path.isfile(savefile)
+        return os.path.isfile(file)
     except Exception as e:
         error(f"An unexpected error occured \n\n {e}")
 
-# create a savefile
 def create_savefile(filename: str = "saved_entries.csv", data: list[Entry] = []) -> None:
+    """
+    creates a csv savefile called 'saved_entries.csv' in the current working directory.\n
+    :param filenmame: relative path and filename \n
+    """
     contents = []
     for entry in data:
         contents.append([entry.get_val(), entry.get_desc(), entry.get_date(), entry.get_type()])
@@ -28,7 +36,12 @@ def create_savefile(filename: str = "saved_entries.csv", data: list[Entry] = [])
         error(f"An unexpected error occured \n\n {e}")
 
 # get data from savefile
-def read_savefile(filename: str = "saved_entries.csv") -> list:
+def read_savefile(filename: str = "saved_entries.csv") -> list[Entry]:
+    """
+    reads the savefile and returns a list of all entries. \n
+    :param filename: The relative path from the current working directory to the file \n
+    :return: a list of all entries. \n
+    """
     read_data = []
     try:
         with open(filename, mode="r", newline="") as savefile:
