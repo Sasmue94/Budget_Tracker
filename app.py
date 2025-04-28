@@ -1,13 +1,12 @@
 import streamlit as st
 import visuals as vs
-import datetime
 from entries import Entry
 from income import Income
 from expense import Expense
 import save as sv
 
-if __name__ == "__main__":
 
+def main() -> None:
     # config
     st.set_page_config(page_title="Budget Tracker", page_icon="💲", layout="wide", initial_sidebar_state="collapsed", menu_items=None)
 
@@ -81,13 +80,13 @@ if __name__ == "__main__":
         st.subheader("Add a new entry")
         l, ml, mr, r = st.columns(4)
         with l:
-            desc: str = st.text_input(label="Description", value="", key="desc")
+            st.text_input(label="Description", value="", key="desc")
         with ml:
-            val: float = st.number_input(label="Amount:", min_value=0.00, value=0.00, key="val")
+            st.number_input(label="Amount:", min_value=0.00, value=0.00, key="val")
         with mr:
-            date: datetime = st.date_input("Date", value="today", key="date")
+            st.date_input("Date", value="today", key="date")
         with r:
-            type: str = st.selectbox(label = "Income / Expense", options=["Income", "Expense"], key="type")
+            st.selectbox(label = "Income / Expense", options=["Income", "Expense"], key="type")
         submit = st.form_submit_button("Add", use_container_width=True)
         if submit:
             new_entry: Entry = create_entry(type=state.type, val=state.val, desc=state.desc, date=state.date)
@@ -116,3 +115,6 @@ if __name__ == "__main__":
         st.rerun()
     # footer area
     st.divider()
+
+if __name__ == "__main__":
+    main()
